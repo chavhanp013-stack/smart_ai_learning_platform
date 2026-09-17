@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+	.back-btn {
+    position: absolute;
+    top: 60px;
+    right: 30px;
+    padding: 10px 15px;
+    background-color: blue;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.back-btn:hover {
+    background-color: #45a049;
+}
+</style>
+
+<div class="quiz-card">
+
+<h3>Question {{ question_number }} of 10</h3>
+<h4>Level {{ level }}</h4>
+
+<form method="POST">
+
+<p class="question"><strong>{{ question.question }}</strong></p>
+
+<div class="options">
+<label><input type="radio" name="answer" value="A"> {{ question.option_a }}</label>
+<label><input type="radio" name="answer" value="B"> {{ question.option_b }}</label>
+<label><input type="radio" name="answer" value="C"> {{ question.option_c }}</label>
+<label><input type="radio" name="answer" value="D"> {{ question.option_d }}</label>
+</div>
+<div class="quiz-buttons">
+
+<button class="quiz-btn" type="submit" name="prev">Previous</button>
+
+{% if not feedback %}
+<button class="quiz-btn" type="submit">Submit</button>
+{% else %}
+<button class="quiz-btn" type="submit" name="next">Next</button>
+{% endif %}
+
+</div>
+<a href="/view_courses" class="back-btn">⬅ Back to courses</a>
+</form>
+
+{% if feedback %}
+<p><b>You Selected:</b> {{ selected_option }}</p>
+<p><b>Correct Answer:</b> {{ feedback.correct_answer }}</p>
+<p><b>Explanation:</b> {{ feedback.explanation }}</p>
+{% endif %}
+
+<div class="quiz-footer">
+<span class="score">Score: {{ score }}</span>
+</div>
+</div>
+{% endblock %}

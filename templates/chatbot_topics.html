@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 style="margin-bottom:30px;">Select Topic</h2>
+
+<div class="topic-container">
+
+{% for topic in topics %}
+
+<a href="/chatbot/{{ topic.topic_id }}/chat" class="topic-card">
+📘 {{ topic.topic_name }}
+</a>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

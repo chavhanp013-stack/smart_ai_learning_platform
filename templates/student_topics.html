@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Quiz Topic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f0f4f8;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #1f2937;
+            color: #fff;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sidebar h2 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .sidebar a {
+            padding: 12px 15px;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 8px;
+            background-color: #374151;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #4b5563;
+        }
+
+        .sidebar a.logout {
+            background-color: #ef4444;
+        }
+
+        .sidebar a.logout:hover {
+            background-color: #dc2626;
+        }
+
+        /* Main content */
+        .main-content {
+            flex: 1;
+            padding: 40px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Top header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #111827;
+            margin-bottom: 10px;
+        }
+
+        /* Page title */
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title h2 {
+            font-size: 24px;
+            color: #111827;
+        }
+
+        /* Topics container */
+        .topics-container {
+            width: 100%;
+            max-width: 700px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .topic-card {
+            background-color: #e5e7eb; 
+            padding: 15px 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* Hover pop-up effect */
+        .topic-card:hover {
+            transform: scale(1.05); /* grows slightly */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2); /* shadow becomes stronger */
+        }
+
+        .topic-card span {
+            font-size: 16px;
+            color: #111827;
+            font-weight: 500;
+        }
+
+        .topic-card a {
+            padding: 8px 15px;
+            background-color: #2575fc;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .topic-card a:hover {
+            background-color: #1a5ccc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                flex-direction: row;
+                overflow-x: auto;
+            }
+
+            .sidebar a {
+                flex: 1;
+                text-align: center;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Dashboard</h2>
+        <a href="/view_courses">View Courses</a>
+        <a href="/student_topics">Attempt Quiz</a>
+        <a href="/view_results">View Results</a>
+        <a href="/chatbot">Open AI Chatbot</a>
+        <a href="/logout" class="logout">Logout</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>Smart AI Learning Platform</h1>
+        </div>
+
+        <div class="page-title">
+            <h2>Select Quiz Topic</h2>
+        </div>
+
+       <div class="topics-container">
+    {% for topic in topics %}
+    <div class="topic-card" onclick="window.location.href='/start_quiz/{{ topic.topic_id }}/1'">
+        <span>{{ topic.topic_name }}</span>
+        <a href="/start_quiz/{{ topic.topic_id }}/1">Start Quiz</a>
+    </div>
+    {% endfor %}
+</div>
+    </div>
+</body>
+</html>

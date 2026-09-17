@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.dashboard {
+    display: flex;
+    gap: 25px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.card {
+    flex: 1;
+    min-width: 320px;       /* increased from 250px */
+    background: white;
+    padding: 30px;          /* increased padding */
+    border-radius: 16px;    /* slightly bigger rounded corners */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* deeper shadow */
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* subtle hover lift */
+}
+
+.card h3 {
+    font-size: 1.6rem;       /* bigger title */
+    margin-bottom: 12px;
+}
+
+.card p {
+    font-size: 1.1rem;       /* bigger description text */
+    margin-bottom: 18px;
+}
+
+.card button {
+    padding: 14px 25px;      /* larger button */
+    font-size: 1.1rem;       /* bigger button text */
+    border: none;
+    background: #1e293b;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.card button:hover {
+    background: #0f172a;
+}
+
+/* 👤 PROFILE */
+.profile {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+}
+
+.profile img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.profile-info h3 {
+    margin: 0;
+}
+
+/* 📊 PROGRESS BAR */
+.progress-container {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 30px;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+    width: 100%;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 20px;
+    margin-top: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #22c55e;
+    width: {{ progress }}%;
+    text-align: center;
+    color: white;
+    font-size: 12px;
+}
+footer{
+background: linear-gradient(135deg,#1e293b,#0f172a);
+color: #cbd5e1;
+padding: 25px 20px;
+text-align: center;
+font-size: 14px;
+margin-top: 40px;
+border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Footer content */
+.footer-content{
+max-width: 900px;
+margin: auto;
+line-height: 1.6;
+}
+
+/* Highlight text */
+.footer-content span{
+color: #3b82f6;
+font-weight: 500;
+}
+
+/* Links */
+.footer-links{
+margin-top: 10px;
+}
+
+.footer-links a{
+color: #94a3b8;
+margin: 0 10px;
+text-decoration: none;
+transition: 0.3s;
+}
+
+.footer-links a:hover{
+color: white;
+}
+</style>
+
+<h1>Welcome to Smart AI Learning Platform 🚀</h1>
+<p class="subtitle">Select what you want to do today</p>
+
+<!-- 👤 PROFILE -->
+<div class="profile">
+    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="profile">
+    <div class="profile-info">
+        <h3>{{ user_name }}</h3>
+        <p>Student</p>
+    </div>
+</div>
+
+<!-- DASHBOARD CARDS -->
+<div class="dashboard">
+	
+	<div class="card">
+        <h3>📝 Start Quiz</h3>
+        <p>Attempt quizzes level-wise and track your performance.</p>
+        <a href="/view_courses">
+            <button>Start Now</button>
+        </a>
+    </div>
+
+	<div class="card">
+        <h3>🤖 Learn with AI Chatbot</h3>
+        <p>Ask topic-based questions and get instant explanations.</p>
+        <a href="/chatbot">
+            <button>Open Chatbot</button>
+        </a>
+    </div>
+
+	<div class="card">
+        <h3>📊 View Results</h3>
+        <p>View all your solved quiz results.</p>
+        <a href="/view_results">
+            <button>View Results</button>
+        </a>
+    </div>
+
+</div>
+
+<!-- 📊 PROGRESS -->
+<div class="progress-container">
+    <h3>Your Learning Progress</h3>
+    <div class="progress-bar">
+        <div class="progress-fill">{{ progress }}%</div>
+    </div>
+
+    <!-- Subject-wise Progress Line Graph -->
+    <h3 style="margin-top: 30px;">Subject-wise Progress</h3>
+    <canvas id="subjectProgressChart" width="800" height="400"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Make sure chart_data is passed from Flask backend
+    const chartData = {{ chart_data | default({}) | tojson }};
+
+    const datasets = [];
+    for (let subject in chartData) {
+        datasets.push({
+            label: subject,
+            data: chartData[subject].scores,
+            fill: false,
+            borderColor: '#' + Math.floor(Math.random()*16777215).toString(16),
+            tension: 0.3,        // smooth curve
+            pointRadius: 4,
+            pointHoverRadius: 6
+        });
+    }
+
+    // Use first subject's dates as X-axis labels
+    const labels = chartData[Object.keys(chartData)[0]] ? chartData[Object.keys(chartData)[0]].dates : [];
+
+    const ctx = document.getElementById('subjectProgressChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Subject-wise Learning Progress'
+                },
+                legend: { position: 'bottom' },
+                tooltip: { mode: 'index', intersect: false }
+            },
+            interaction: { mode: 'nearest', axis: 'x', intersect: false },
+            scales: {
+                y: {
+                    min: 0,
+                    max: 100,
+                    title: { display: true, text: 'Score (%)' },
+                    grid: { color: '#f0f0f0' }
+                },
+                x: {
+                    title: { display: true, text: 'Date' },
+                    grid: { color: '#f0f0f0' }
+                }
+            }
+        }
+    });
+</script>
+
+<footer>
+
+<p>© 2026 Unitest. All rights reserved.
+
+AI-Powered Learning Platform using ai quiz generator and ai chatbot </p>
+
+</footer>
+
+{% endblock %}

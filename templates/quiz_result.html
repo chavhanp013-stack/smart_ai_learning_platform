@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Quiz Result</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+background:#eef2f7;
+margin:0;
+}
+
+.result-wrapper{
+display:flex;
+justify-content:center;
+align-items:center;
+margin-top:40px;
+}
+
+.result-card{
+background:white;
+width:650px;
+padding:30px;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+text-align:center;
+}
+
+h2{
+margin-bottom:10px;
+}
+
+.score{
+font-size:28px;
+font-weight:bold;
+margin:10px 0;
+}
+
+.progress{
+width:100%;
+background:#ddd;
+border-radius:10px;
+overflow:hidden;
+margin:20px 0;
+}
+
+.progress-bar{
+height:18px;
+background:#4CAF50;
+}
+
+.pass{
+color:green;
+font-weight:bold;
+}
+
+.fail{
+color:red;
+font-weight:bold;
+}
+
+.btn{
+padding:10px 20px;
+margin:8px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-size:14px;
+}
+
+.retry{
+background:#ff9800;
+color:white;
+}
+
+.next{
+background:#4CAF50;
+color:white;
+}
+
+.back{
+background:#2196F3;
+color:white;
+}
+
+.cert{
+background:#673ab7;
+color:white;
+}
+
+table{
+margin:40px auto;
+border-collapse:collapse;
+width:60%;
+background:white;
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+th,td{
+padding:10px;
+border:1px solid #ccc;
+}
+
+th{
+background:#333;
+color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="result-wrapper">
+
+<div class="result-card">
+
+<h2>🎉 Quiz Completed!</h2>
+
+<div class="score">
+{{ score }} / {{ total }}
+</div>
+
+<h3>{{ percentage|round(2) }}%</h3>
+
+<div class="progress">
+<div class="progress-bar" style="width:{{percentage}}%"></div>
+</div>
+
+{% if passed %}
+<p class="pass">✅ You Passed! Next Level Unlocked!</p>
+{% else %}
+<p class="fail">❌ You Failed. Try Again!</p>
+{% endif %}
+
+<br>
+
+<a href="/start_quiz/{{ topic_id }}/{{ level }}">
+<button class="btn retry">🔁 Retry Same Level</button>
+</a>
+
+{% if passed %}
+<a href="/start_quiz/{{ topic_id }}/{{ level + 1 }}">
+<button class="btn next">🚀 Next Level</button>
+</a>
+
+<a href="/certificates/{{ topic_id }}">
+<button class="btn cert">🏆 Download Certificate</button>
+</a>
+{% endif %}
+
+<br><br>
+
+<a href="/view_courses">
+<button class="btn back">📚 Back to Topics</button>
+</a>
+
+</div>
+</div>
+
+
+<h3 style="text-align:center;margin-top:40px;">🏆 Leaderboard</h3>
+
+<table>
+
+<tr>
+<th>Rank</th>
+<th>Email</th>
+<th>Score</th>
+</tr>
+
+{% for user in leaderboard %}
+<tr>
+<td>{{ loop.index }}</td>
+<td>{{ user.u_email }}</td>
+<td>{{ user.score }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>

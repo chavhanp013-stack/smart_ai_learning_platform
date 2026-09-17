@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Ai learning platform - Sign Up</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#eef2f7;
+height:100vh;
+display:flex;
+flex-direction:column;
+}
+
+/* NAVBAR */
+
+.navbar{
+background:#2f3e4e;
+color:white;
+padding:15px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
+}
+
+.nav-links a{
+color:white;
+margin-left:20px;
+text-decoration:none;
+}
+
+/* FORM CENTER */
+
+.container{
+flex:1;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:60px 0;  /* gives scroll space */
+}
+
+.form-box{
+background:white;
+width:420px;
+padding:40px;
+border-radius:12px;
+box-shadow:0 8px 25px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.form-box h2{
+color:#3b82f6;
+margin-bottom:10px;
+}
+
+.form-box p{
+color:#6b7280;
+font-size:14px;
+margin-bottom:25px;
+}
+
+.input-group{
+text-align:left;
+margin-bottom:18px;
+}
+
+.input-group label{
+font-size:14px;
+display:block;
+margin-bottom:5px;
+}
+
+.input-group input{
+width:100%;
+padding:10px;
+border:1px solid #d1d5db;
+border-radius:6px;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#3b82f6;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#2563eb;
+}
+
+.login-text{
+margin-top:15px;
+font-size:14px;
+}
+
+.login-text a{
+color:#3b82f6;
+text-decoration:none;
+}
+footer{
+background: linear-gradient(135deg,#1e293b,#0f172a);
+color: #cbd5e1;
+padding: 25px 20px;
+text-align: center;
+font-size: 14px;
+margin-top: 40px;
+border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Footer content */
+.footer-content{
+max-width: 900px;
+margin: auto;
+line-height: 1.6;
+}
+
+/* Highlight text */
+.footer-content span{
+color: #3b82f6;
+font-weight: 500;
+}
+
+/* Links */
+.footer-links{
+margin-top: 10px;
+}
+
+.footer-links a{
+color: #94a3b8;
+margin: 0 10px;
+text-decoration: none;
+transition: 0.3s;
+}
+
+.footer-links a:hover{
+color: white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+<div class="logo">Smart Ai Learning </div>
+
+
+<div class="nav-links">
+<a href="/login">Login</a>
+<a href="/signup">Sign Up</a>
+</div>
+</div>
+
+<div class="container">
+
+<div class="form-box">
+
+<h2>Create Account</h2>
+<p>Join Smart Ai learning platform and start your AI learning journey</p>
+
+<form method="POST" action="/signup">
+
+<div class="input-group">
+<label>Username</label>
+<input type="text" name="username" required>
+</div>
+
+<div class="input-group">
+<label>Email</label>
+<input type="email" name="email" required>
+</div>
+
+<div class="input-group">
+<label>Password</label>
+<input type="password" name="password" required>
+</div>
+<div class="input-group">
+<label>Contact</label>
+<input 
+    type="tel" 
+    name="mobile" 
+    placeholder="Enter Mobile Number" 
+    pattern="[6-9]{1}[0-9]{9}" 
+    title="Enter a valid 10-digit mobile number starting with 6-9"
+    maxlength="10"
+    required>
+</div>
+
+<button type="submit">Create Account</button>
+
+</form>
+
+<div class="login-text">
+Already have an account? <a href="/login">Login</a>
+</div>
+
+</div>
+
+</div>
+<script>
+document.querySelector("form").addEventListener("submit", function(e) {
+    let mobile = document.querySelector("input[name='mobile']").value;
+    let pattern = /^[6-9][0-9]{9}$/;
+
+    if (!pattern.test(mobile)) {
+        alert("Please enter a valid 10-digit mobile number starting with 6-9");
+        e.preventDefault(); // stop form submission
+    }
+});
+</script>
+
+<footer>
+
+<p>© 2026 Unitest. All rights reserved. AI-Powered Learning Platform </p>
+
+</footer>
+</body>
+</html>

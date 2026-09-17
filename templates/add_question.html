@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Question</title>
+</head>
+<body>
+    <h2>Add Quiz Question</h2>
+
+    <form method="POST">
+
+        <label>Select Topic:</label><br>
+        <select name="topic_id" required>
+            {% for topic in topics %}
+                <option value="{{ topic.topic_id }}">
+                    {{ topic.topic_name }}
+                </option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Question:</label><br>
+        <textarea name="question" required></textarea><br><br>
+
+        <label>Option A:</label><br>
+        <input type="text" name="option_a" required><br><br>
+
+        <label>Option B:</label><br>
+        <input type="text" name="option_b" required><br><br>
+
+        <label>Option C:</label><br>
+        <input type="text" name="option_c" required><br><br>
+
+        <label>Option D:</label><br>
+        <input type="text" name="option_d" required><br><br>
+
+        <label>Correct Option (A/B/C/D):</label><br>
+        <input type="text" name="correct_option" maxlength="1" required><br><br>
+
+        Level:
+<select name="level">
+    <option value="1">Basic</option>
+    <option value="2">Easy</option>
+    <option value="3">Medium</option>
+    <option value="4">Medium-Hard</option>
+    <option value="5">Hard</option>
+</select>
+
+        <button type="submit">Save Question</button>
+
+
+    </form>
+
+    <br>
+    <a href="/admin_dashboard">Back to Dashboard</a>
+</body>
+</html>

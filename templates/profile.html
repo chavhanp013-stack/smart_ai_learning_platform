@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Profile</title>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #0d1b2a;
+        color: white;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+   .profile-card {
+    background: white;
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.profile-left img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #007bff;
+}
+
+.profile-right h2 {
+    margin: 0;
+    color: #333;
+}
+
+.profile-right .email {
+    color: #666;
+    font-size: 14px;
+}
+
+    .info {
+        text-align: left;
+        background: #0f253a;
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .info div {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        font-size: 16px;
+    }
+
+    .info div span.label {
+        font-weight: bold;
+        color: #22c55e;
+    }
+
+    .edit-btn {
+        margin-top: 20px;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        background: #22c55e;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .edit-btn:hover {
+        background: #16a34a;
+        transform: translateY(-3px);
+    }
+
+    @media (max-width: 400px){
+        .profile-container {
+            width: 90%;
+            padding: 30px 20px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="profile-card">
+    <div class="profile-left">
+        
+    
+        <!-- <img src="{{ url_for('static', filename=doctor.img_url) }}" alt="Doctor"> -->
+
+
+    </div>
+
+    <div class="profile-right">
+        <h2>{{u_name }}</h2>
+        <p class="email">{{u_email }}</p>
+        <!-- <p class="hospital">{{ dohospital }}</p>
+        <p class="year">{{ doctor.year }}</p> -->
+    </div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Add Course</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #f1f5f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.box {
+    background: white;
+    padding: 30px;
+    width: 400px;
+    border-radius: 10px;
+}
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+}
+button {
+    width: 100%;
+    padding: 10px;
+    background: #1e293b;
+    color: white;
+    border: none;
+    margin-top: 15px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+    <h2>Add Course</h2>
+
+    <form method="POST">
+        <input type="text" name="course_name" placeholder="Course Name" required>
+        <textarea name="course_description" placeholder="Description"></textarea>
+
+        <button type="submit">Add Course</button>
+    </form>
+</div>
+
+</body>
+</html>

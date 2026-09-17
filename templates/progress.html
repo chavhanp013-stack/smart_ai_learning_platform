@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 style="margin-bottom:30px;">📊 Learning Progress</h2>
+<style>
+	.start-btn:hover{
+    background:#0b6bdc;
+}
+.back-btn {
+    position: absolute;
+    top: 70px;
+    right: 30px;
+    padding: 10px 15px;
+    background-color: blue;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.back-btn:hover {
+    background-color: #45a049;
+}
+</style>
+
+<div class="progress-container">
+
+<!-- Overall Progress -->
+
+<div class="progress-card">
+
+<h3>Overall Progress</h3>
+
+<div class="progress-bar">
+<div class="progress-fill" style="width: {{ overall_progress }}%;">
+{{ overall_progress }}%
+</div>
+</div>
+
+</div>
+
+<!-- Subject Progress -->
+
+<div class="progress-card">
+
+<h3>Subject Performance</h3>
+
+{% for subject in subjects %}
+
+<div class="subject-box">
+
+<div class="subject-header">
+<span>{{ subject.name }}</span>
+<span>{{ subject.score }}%</span>
+</div>
+
+<div class="progress-bar small">
+<div class="progress-fill" style="width: {{ subject.score }}%;"></div>
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<!-- Improvement Section -->
+
+<div class="progress-card improve-card">
+
+<h3>📈 Improvement Suggestion</h3>
+
+<p>
+You should improve your performance in  
+<strong>{{ weak_subject }}</strong>.
+</p>
+
+<p style="margin-top:10px;">
+Practice more quizzes and ask the AI chatbot for help in this topic.
+</p>
+
+</div>
+
+</div>
+<a href="/student_dashboard" class="back-btn">⬅ Back to Dashboard</a>
+{% endblock %}

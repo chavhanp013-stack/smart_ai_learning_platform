@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.feedback-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:80vh;
+}
+
+form {
+    background:#0f172a;
+    color:white;
+    padding:40px;
+    border-radius:12px;
+    box-shadow:0 6px 15px rgba(0,0,0,0.4);
+    width:500px;   /* Increased box size */
+    text-align:center;
+}
+
+h2{
+    margin-bottom:20px;
+}
+
+.star-rating{
+    direction:rtl;
+    display:inline-block;
+    font-size:2.5rem;  /* bigger stars */
+}
+
+.star-rating input{
+    display:none;
+}
+
+.star-rating label{
+    color:#ccc;
+    cursor:pointer;
+}
+
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label{
+    color:gold;
+}
+
+textarea{
+    width:100%;
+    height:120px;
+    margin-top:15px;
+    padding:10px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    resize:none;
+}
+
+button{
+    margin-top:15px;
+    padding:12px 25px;
+    font-size:16px;
+    background:blue;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#45a049;
+}
+
+.back-btn{
+    margin-top:45px;
+    display:inline-block;
+    padding:10px 18px;
+    background:#2196F3;
+    color:white;
+    text-decoration:none;
+    border-radius:6px;
+}
+
+.back-btn:hover{
+    background:#1976D2;
+}
+
+</style>
+
+<div class="feedback-container">
+
+<form id="feedbackForm" action="{{ url_for('feedback') }}" method="POST">
+
+<h2>Give Your Feedback</h2>
+
+<div class="star-rating">
+<input type="radio" id="star5" name="rating" value="5"><label for="star5">&#9733;</label>
+<input type="radio" id="star4" name="rating" value="4"><label for="star4">&#9733;</label>
+<input type="radio" id="star3" name="rating" value="3"><label for="star3">&#9733;</label>
+<input type="radio" id="star2" name="rating" value="2"><label for="star2">&#9733;</label>
+<input type="radio" id="star1" name="rating" value="1"><label for="star1">&#9733;</label>
+</div>
+
+<textarea name="comment" placeholder="Write your feedback..."></textarea>
+
+<br>
+<button type="submit">Submit Feedback</button>
+
+<br>
+<a href="{{ url_for('student_dashboard') }}" class="back-btn">Back</a>
+
+</form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot Subtopics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 40px;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        .topic-box {
+            display: block;
+            width: 300px;
+            margin: 10px auto;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.3s;
+            font-size: 16px;
+        }
+
+        .topic-box:hover {
+            background-color: #45a049;
+        }
+
+        .back-btn {
+            margin-top: 30px;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #555;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .back-btn:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>📘 {{ topic_name }} - Learning Topics</h2>
+
+    <div class="container">
+        {% for sub in subtopics %}
+            <a class="topic-box" href="/chatbot/{{ topic_id }}/{{ sub }}">
+                {{ sub }}
+            </a>
+        {% endfor %}
+    </div>
+
+    <a href="/chatbot" class="back-btn">⬅ Back to Topics</a>
+
+</body>
+</html>

@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.page-title {
+    text-align: center;
+    margin: 40px 0 20px 0;
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+}
+
+.total-certs {
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.cert-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 0 20px;
+    justify-items: center;
+}
+
+.cert-card {
+    background: linear-gradient(145deg, #ffffff, #f1f5f9);
+    border-radius: 18px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 6px solid #4CAF50;
+}
+
+.cert-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+.cert-icon {
+    font-size: 50px;
+    color: #4CAF50;
+    margin-bottom: 15px;
+}
+
+.cert-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #222;
+}
+
+.cert-date {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.cert-btn {
+    display: inline-block;
+    padding: 12px 22px;
+    background: linear-gradient(135deg, #4CAF50, #43a047);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.cert-btn:hover {
+    background: linear-gradient(135deg, #43a047, #388e3c);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.empty {
+    text-align: center;
+    color: #fff;
+    margin-top: 60px;
+    font-size: 20px;
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 28px;
+        margin-top: 20px;
+    }
+    .cert-card {
+        padding: 25px 15px;
+    }
+}
+
+.start-btn:hover{
+    background:#0b6bdc;
+}
+.back-btn {
+    position: absolute;
+    top: 90px;
+    right: 30px;
+    padding: 10px 15px;
+    background-color: blue;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.back-btn:hover {
+    background-color: #45a049;
+}
+</style>
+
+<h2 class="page-title">🏆 My Achievements</h2>
+<p class="total-certs">You have earned <strong>{{ total_certs }}</strong> certificate{{ 's' if total_certs != 1 else '' }}.</p>
+
+{% if certs %}
+<div class="cert-container">
+    {% for c in certs %}
+    <div class="cert-card">
+        <div class="cert-icon">🎓</div>
+        <div class="cert-title">{{ c.topic_name }}</div>
+        <div class="cert-date">Issued on: {{ c.cert_issued_date.strftime('%d %b %Y') }}</div>
+        <a href="{{ url_for('serve_certificate', filename=c.cert_filename) }}" target="_blank" class="cert-btn">
+    View Certificate
+</a>
+    
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="empty">No certificates earned yet. Complete quizzes to unlock achievements!</p>
+{% endif %}
+<a href="/student_dashboard" class="back-btn">⬅ Back to Dashboard</a>
+
+{% endblock %}

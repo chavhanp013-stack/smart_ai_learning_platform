@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Quiz Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            text-align: center;
+            margin: 20px 0;
+            color: #333;
+        }
+        table {
+            width: 90%;
+            margin: auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color:blue;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #e0f2f1;
+        }
+        .status-passed {
+            color: green;
+            font-weight: bold;
+        }
+        .status-failed {
+            color: red;
+            font-weight: bold;
+        }
+        p.no-results {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 50px;
+            color: #555;
+        }
+        .back-btn {
+            display: block;
+            width: 150px;
+            margin: 30px auto;
+            text-align: center;
+            padding: 10px;
+            background-color:blue;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<h2>📝 My Quiz Results</h2>
+
+{% if results %}
+<table>
+    <thead>
+        <tr>
+            <th>Topic</th>
+            <th>Level</th>
+            <th>Score</th>
+            <th>Total Questions</th>
+            <th>Percentage</th>
+            <th>Status</th>
+            <th>Taken At</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in results %}
+        <tr>
+            <td>{{ r.topic_name }}</td>
+            <td>{{ r.level }}</td>
+            <td>{{ r.score }}</td>
+            <td>{{ r.total_questions }}</td>
+            <td>{{ r.percentage }}%</td>
+            <td class="{{ 'status-passed' if r.percentage >= 50 else 'status-failed' }}">
+                {{ r.status }}
+            </td>
+            <td>{{ r.taken_at.strftime('%d-%m-%Y %H:%M') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="no-results">You haven't attempted any quizzes yet.</p>
+{% endif %}
+
+<a href="/student_dashboard" class="back-btn">⬅ Back to Dashboard</a>
+
+</body>
+</html>

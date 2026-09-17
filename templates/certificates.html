@@ -1,0 +1,189 @@
+{% block content %}
+
+<style>
+/* Page background */
+body {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Page title with greeting */
+.page-title {
+    text-align: center;
+    margin: 40px 0 30px 0;
+    font-size: 34px;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+}
+
+/* Greeting message */
+.greeting {
+    text-align: center;
+    color: #ffd700;
+    font-size: 20px;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+/* Certificate container grid */
+.cert-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 0 20px;
+    justify-items: center;
+}
+
+/* Certificate card */
+.cert-card {
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    border-radius: 20px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    transition: all 0.4s ease;
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 8px solid #ffd700;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Confetti animation on card hover */
+.cert-card::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: repeating-conic-gradient(#ffd700 0% 10%, #ff6347 0% 20%);
+    animation: rotate 6s linear infinite;
+    opacity: 0.1;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg);}
+    to { transform: rotate(360deg);}
+}
+
+.cert-card:hover {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.35);
+}
+
+/* Trophy image */
+.cert-icon {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 15px;
+    background: url('https://cdn-icons-png.flaticon.com/512/616/616408.png') no-repeat center;
+    background-size: contain;
+}
+
+/* Certificate title and date */
+.cert-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.cert-date {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Certificate button */
+.cert-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #ffd700, #ffb400);
+    color: #222;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.cert-btn:hover {
+    background: linear-gradient(135deg, #ffb400, #ff9900);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Empty message */
+.empty {
+    text-align: center;
+    color: #fff;
+    margin-top: 80px;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+/* Back button */
+.back-btn {
+    display: block;
+    width: 180px;
+    margin: 40px auto;
+    text-align: center;
+    padding: 12px;
+    background-color: #ff6347;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: #e5533d;
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 28px;
+        margin-top: 20px;
+    }
+    .cert-card {
+        padding: 25px 15px;
+    }
+}
+</style>
+
+<h2 class="page-title">🏆 Congratulations!</h2>
+<p class="greeting">
+    {% if total_certs > 0 %}
+        You’ve unlocked <strong>{{ total_certs }}</strong> achievement{{ 's' if total_certs != 1 else '' }}! Keep going! 🎉
+    {% else %}
+        No achievements yet. Complete a course to earn your first trophy! 🏅
+    {% endif %}
+</p>
+
+{% if certs %}
+<div class="cert-container">
+    {% for c in certs %}
+    <div class="cert-card">
+        <div class="cert-icon"></div>
+        <div class="cert-title">{{ c.topic_name }}</div>
+        <div class="cert-date">Issued on: {{ c.cert_issued_date.strftime('%d %b %Y') if c.cert_issued_date else 'N/A' }}</div>
+        <a href="{{ url_for('serve_certificate', filename=c.cert_filename) }}" target="_blank" class="cert-btn">
+            View Certificate
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="empty">No certificates earned yet. Complete a course to unlock achievements!</p>
+{% endif %}
+
+<a href="{{ url_for('student_dashboard') }}" class="back-btn">⬅ Back to Dashboard</a>
+
+{% endblock %}
