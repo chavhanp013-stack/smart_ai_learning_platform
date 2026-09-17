@@ -27,10 +27,11 @@ mail = Mail(app)
 # ---------------- DATABASE CONNECTION ----------------
 def get_db_connection():
     return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="ai_learning_platform"
+        host=os.environ.get("MYSQL_HOST"),
+        user=os.environ.get("MYSQL_USER"),
+        password=os.environ.get("MYSQL_PASSWORD"),
+        database=os.environ.get("MYSQL_DATABASE"),
+        port=int(os.environ.get("MYSQL_PORT", 3306))
     )
 
 
